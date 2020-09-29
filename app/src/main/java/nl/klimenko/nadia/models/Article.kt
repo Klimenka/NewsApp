@@ -10,7 +10,7 @@ data class Article (
     val PublishDate : String?,
     val Image : String?,
     val Url : String?,
-    val Related : Array<String>?,
-    val Categories : Array<Category>?,
+    val Related : List<String>?,
+    val Categories : List<Category>?,
     val IsLiked : Boolean?
 ): Serializable
