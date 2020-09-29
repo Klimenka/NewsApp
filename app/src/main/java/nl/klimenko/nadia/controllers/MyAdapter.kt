@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import nl.klimenko.nadia.R
 import nl.klimenko.nadia.models.Article
 
-class MyAdapter(var c: Context, private val items: List<Article>) : RecyclerView.Adapter<MyViewHolder>() {
+class MyAdapter(var c: Context, private val items: List<Article>, private val articleListener: ArticleListener) : RecyclerView.Adapter<MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(c)
         val itemView = inflater.inflate(R.layout.articles_view, parent, false)
@@ -17,7 +17,7 @@ class MyAdapter(var c: Context, private val items: List<Article>) : RecyclerView
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[position], articleListener)
 
     }
 }
