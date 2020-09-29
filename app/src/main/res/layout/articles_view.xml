@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/articlesView"
@@ -14,17 +13,19 @@
         android:layout_height="60dp"
         android:layout_margin="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="Image"/>
 
 
     <TextView
         android:id="@+id/Title"
         android:layout_width="wrap_content"
-        android:maxWidth="220dp"
+        android:maxWidth="230dp"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="Title of the article"
+        android:text="@string/title_of_the_article"
         android:singleLine="false"
+        android:textAppearance="@style/TitleText"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/Image"
         />
