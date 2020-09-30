@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:id="@+id/articlesView"
-    android:layout_margin="5dp">
+    android:layout_margin="5dp"
+    app:cardElevation="8dp">
 
-    <ImageView
-        android:id="@+id/Image"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:layout_margin="15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="Image"/>
-
-
-    <TextView
-        android:id="@+id/Title"
-        android:layout_width="wrap_content"
-        android:maxWidth="230dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="@string/title_of_the_article"
-        android:singleLine="false"
-        android:textAppearance="@style/TitleText"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/Image"
-        />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:weightSum="10">
+
+        <ImageView
+            android:id="@+id/Image"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_margin="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="Image"/>
+
+
+        <TextView
+            android:id="@+id/Title"
+            android:layout_width="wrap_content"
+            android:maxWidth="230dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/title_of_the_article"
+            android:singleLine="false"
+            android:textAppearance="@style/TitleText"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+
