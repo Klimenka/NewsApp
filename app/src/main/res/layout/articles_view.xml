@@ -28,9 +28,10 @@
         <TextView
             android:id="@+id/Title"
             android:layout_width="wrap_content"
-            android:maxWidth="230dp"
+            android:layout_gravity="center_vertical"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
+
             android:text="@string/title_of_the_article"
             android:singleLine="false"
             android:textAppearance="@style/TitleText"/>

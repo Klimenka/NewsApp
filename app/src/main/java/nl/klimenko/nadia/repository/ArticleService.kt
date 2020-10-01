@@ -1,12 +1,10 @@
-package nl.klimenko.nadia.services
+package nl.klimenko.nadia.repository
 
 import nl.klimenko.nadia.models.Feed
 import nl.klimenko.nadia.models.ResultArticle
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface ArticleService {
     @GET("api/Articles")
