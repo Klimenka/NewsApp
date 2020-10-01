@@ -56,14 +56,49 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle> {
              myDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
              myDialog?.window?.setGravity(Gravity.BOTTOM)
              myDialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+             myDialog?.window?.findViewById<Button>(R.id.registerButton)?.setOnClickListener{
+                myDialog!!.dismiss()
+                 registerWindow()
+             }
+             myDialog?.window?.findViewById<Button>(R.id.loginButton)?.setOnClickListener{
+                 myDialog!!.dismiss()
+                 loginWindow()
+             }
+
              myDialog?.show()
 
          }
     }
-    fun shortLoading(){
+    private fun registerWindow(){
+        myDialog?.setContentView(R.layout.register)
+        myDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        myDialog?.window?.setGravity(Gravity.BOTTOM)
+        myDialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        myDialog?.window?.findViewById<Button>(R.id.registerButton)?.setOnClickListener{
+            myDialog!!.dismiss()
+            //register check
+        }
+
+        myDialog?.show()
+    }
+    private fun loginWindow(){
+        myDialog?.setContentView(R.layout.login)
+        myDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        myDialog?.window?.setGravity(Gravity.BOTTOM)
+        myDialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        myDialog?.window?.findViewById<Button>(R.id.loginButton)?.setOnClickListener{
+            myDialog!!.dismiss()
+            //log in check
+        }
+
+        myDialog?.show()
+
+
+    }
+    private fun shortLoading(){
         Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show()
     }
-    fun longLoading(){
+    private fun longLoading(){
         Toast.makeText(this, "Loading...", Toast.LENGTH_LONG).show()
     }
     override fun onResponse(call: Call<ResultArticle>, response: Response<ResultArticle>) {

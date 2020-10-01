@@ -2,4 +2,8 @@
     <string name="app_name">student617070</string>
     <string name="title_of_the_article">Title of the article</string>
     <string name="ask_for_log_in">Welcome, please login or register to save your favorites articles</string>
+    <string name="password">Password</string>
+    <string name="user_name">User Name</string>
+    <string name="register">REGISTER</string>
+    <string name="login">LOGIN</string>
 </resources>

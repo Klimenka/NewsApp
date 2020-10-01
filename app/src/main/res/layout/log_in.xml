@@ -28,17 +28,20 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_gravity="center"
+            android:layout_margin="5dp"
             >
             <Button
                 android:layout_width="200dp"
                 android:layout_height="50dp"
-                android:text="LOGIN">
-
+                android:text="@string/login"
+                android:id="@+id/loginButton"
+                >
             </Button>
             <Button
+                android:id="@+id/registerButton"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
-                android:text="REGISTER">
+                android:text="@string/register">
 
             </Button>
         </LinearLayout>
