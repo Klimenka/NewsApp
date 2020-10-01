@@ -55,12 +55,9 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle> {
              myDialog?.setContentView(R.layout.log_in)
              myDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
              myDialog?.window?.setGravity(Gravity.BOTTOM)
-             myDialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+             myDialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
              myDialog?.show()
 
-            // val intent = Intent(this, LogInView::class.java)
-           //  intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-           //  startActivity(intent)
          }
     }
     fun shortLoading(){
