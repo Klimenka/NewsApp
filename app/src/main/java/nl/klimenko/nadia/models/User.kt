@@ -1,4 +1,10 @@
 package nl.klimenko.nadia.models
 
-data class User  (val name : String, val token : LoginToken){
+object User{
+    var name : String? = null
+    var token : LoginToken? = null
+
+   public fun getUser(): User {
+        return this
+    }
 }

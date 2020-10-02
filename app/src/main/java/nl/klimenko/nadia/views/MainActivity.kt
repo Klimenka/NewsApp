@@ -15,11 +15,13 @@ import nl.klimenko.nadia.controllers.ArticleListener
 import nl.klimenko.nadia.controllers.MyAdapter
 import nl.klimenko.nadia.models.Article
 import nl.klimenko.nadia.models.ResultArticle
+import nl.klimenko.nadia.models.User
 import nl.klimenko.nadia.repository.ArticleService
 import retrofit2.*
 
 class MainActivity : AppCompatActivity(), Callback<ResultArticle> {
     var myDialog : Dialog? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.recyclerview)
@@ -41,7 +43,12 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle> {
 
     fun onGroupItemClick(item: MenuItem) {
          if (item.title == "Log in"){
-             myDialog?.let { DialogOpening().openDialogWindow(it) }
+             if(User.getUser().token == null){
+                myDialog?.let { DialogOpening().openDialogWindow(it)}
+             }
+             else{
+                 myDialog?.let { LogoutView().showLogout(it) }
+             }
          }
     }
 
