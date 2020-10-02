@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.articles_view.*
 import kotlinx.android.synthetic.main.recyclerview.*
 import nl.klimenko.nadia.R
+import nl.klimenko.nadia.configuration.RetrofitFactory
 import nl.klimenko.nadia.controllers.ArticleListener
 import nl.klimenko.nadia.controllers.DialogOpening
 import nl.klimenko.nadia.controllers.MyAdapter
@@ -32,13 +33,9 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle> {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.recyclerview)
         myDialog = Dialog(this)
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://inhollandbackend.azurewebsites.net/")
-            .addConverterFactory(MoshiConverterFactory.create())
-            .build()
-
-        val service = retrofit.create(ArticleService::class.java)
-        service.articles().enqueue(this)
+        val retrofit = RetrofitFactory.getRetrofitObject()
+        val service = retrofit?.create(ArticleService::class.java)
+        service?.articles()?.enqueue(this)
         longLoading()
     }
 
