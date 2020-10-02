@@ -48,7 +48,7 @@ class RegisterView : Callback<RegisterMessage> {
  */
             val service = RetrofitFactory.getRetrofitObject()?.create(RegisterService::class.java)
             service?.register(UserName = user_name, Password =  password)?.enqueue(this)
-
+            Toast.makeText(myDialog.context, "Waiting...", Toast.LENGTH_SHORT).show()
         }
         myDialog.show()
     }
