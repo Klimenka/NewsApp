@@ -1,31 +1,22 @@
 package nl.klimenko.nadia.views
 
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Button
-import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.articles_view.*
 import kotlinx.android.synthetic.main.recyclerview.*
 import nl.klimenko.nadia.R
 import nl.klimenko.nadia.configuration.RetrofitFactory
 import nl.klimenko.nadia.controllers.ArticleListener
-import nl.klimenko.nadia.controllers.DialogOpening
 import nl.klimenko.nadia.controllers.MyAdapter
 import nl.klimenko.nadia.models.Article
 import nl.klimenko.nadia.models.ResultArticle
 import nl.klimenko.nadia.repository.ArticleService
 import retrofit2.*
-
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 class MainActivity : AppCompatActivity(), Callback<ResultArticle> {
     var myDialog : Dialog? = null
