@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle> {
 
     fun onGroupItemClick(item: MenuItem) {
          if (item.title == "Log in"){
-             val login = myDialog?.let { DialogOpening().openDialogWindow(it) }
+             myDialog?.let { DialogOpening().openDialogWindow(it) }
          }
     }
 
