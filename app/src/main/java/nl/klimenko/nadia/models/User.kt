@@ -6,5 +6,9 @@ object User{
 
    public fun getUser(): User {
         return this
+   }
+    public fun clearCredentials(){
+        name = null
+        token = null
     }
 }
