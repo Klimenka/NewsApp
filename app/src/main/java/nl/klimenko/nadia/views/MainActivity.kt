@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.articles_view.*
 import kotlinx.android.synthetic.main.recyclerview.*
 import nl.klimenko.nadia.R
 import nl.klimenko.nadia.controllers.ArticleListener
+import nl.klimenko.nadia.controllers.DialogOpening
 import nl.klimenko.nadia.controllers.MyAdapter
 import nl.klimenko.nadia.models.Article
 import nl.klimenko.nadia.models.ResultArticle
@@ -52,49 +53,10 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle> {
 
     fun onGroupItemClick(item: MenuItem) {
          if (item.title == "Log in"){
-             myDialog?.setContentView(R.layout.log_in)
-             myDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-             myDialog?.window?.setGravity(Gravity.BOTTOM)
-             myDialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-             myDialog?.window?.findViewById<Button>(R.id.registerButton)?.setOnClickListener{
-                myDialog!!.dismiss()
-                 registerWindow()
-             }
-             myDialog?.window?.findViewById<Button>(R.id.loginButton)?.setOnClickListener{
-                 myDialog!!.dismiss()
-                 loginWindow()
-             }
-
-             myDialog?.show()
-
+             val login = myDialog?.let { DialogOpening().openDialogWindow(it) }
          }
     }
-    private fun registerWindow(){
-        myDialog?.setContentView(R.layout.register)
-        myDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        myDialog?.window?.setGravity(Gravity.BOTTOM)
-        myDialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        myDialog?.window?.findViewById<Button>(R.id.registerButton)?.setOnClickListener{
-            myDialog!!.dismiss()
-            //register check
-        }
 
-        myDialog?.show()
-    }
-    private fun loginWindow(){
-        myDialog?.setContentView(R.layout.login)
-        myDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        myDialog?.window?.setGravity(Gravity.BOTTOM)
-        myDialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        myDialog?.window?.findViewById<Button>(R.id.loginButton)?.setOnClickListener{
-            myDialog!!.dismiss()
-            //log in check
-        }
-
-        myDialog?.show()
-
-
-    }
     private fun shortLoading(){
         Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show()
     }
