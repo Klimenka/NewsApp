@@ -17,5 +17,8 @@
     <string name="full_article">Link to the full article</string>
     <string name="articleimage">ArticleImage</string>
     <string name="like">like</string>
+    <string name="tryAgainLater">Please, try again later!</string>
+    <string name="userNameRequired">User Name is required</string>
+    <string name="passwordRequired">Password is required</string>
 
 </resources>

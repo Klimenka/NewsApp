@@ -9,15 +9,14 @@ import nl.klimenko.nadia.models.Article
 
 class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind (item: Article,listener: ArticleListener?) {
+    fun bind(item: Article, listener: ArticleListener?) {
         itemView.Title.text = item.Title
-        itemView.Image.load(item.Image){
+        itemView.Image.load(item.Image) {
             crossfade(true)
-           // placeholder(R.drawable.placeholder)
             transformations(RoundedCornersTransformation(10F))
 
         }
-        itemView.setOnClickListener{
+        itemView.setOnClickListener {
             listener?.onArticleClicked(item)
         }
     }

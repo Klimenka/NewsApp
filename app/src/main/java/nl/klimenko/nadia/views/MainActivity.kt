@@ -16,23 +16,23 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.android.synthetic.main.recyclerview.*
 import nl.klimenko.nadia.R
 import nl.klimenko.nadia.configuration.RetrofitFactory
+import nl.klimenko.nadia.configuration.SessionManager
 import nl.klimenko.nadia.controllers.ArticleListener
 import nl.klimenko.nadia.controllers.MyAdapter
 import nl.klimenko.nadia.models.Article
 import nl.klimenko.nadia.models.ResultArticle
-import nl.klimenko.nadia.models.User
 import nl.klimenko.nadia.repository.ArticleService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class MainActivity : AppCompatActivity(), Callback<ResultArticle>, SwipeRefreshLayout.OnRefreshListener  {
-    var myDialog: Dialog? = null
-    var service: ArticleService? = null
-    private var articles : List<Article>? = emptyList()
-    private var collectArticles : MutableList<Article>? = null
-    lateinit var swipeRefreshLayout : SwipeRefreshLayout
+class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
+    SwipeRefreshLayout.OnRefreshListener {
+    private lateinit var sessionManager: SessionManager
+    lateinit var myDialog: Dialog
+    lateinit var service: ArticleService
+    lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -40,32 +40,36 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>, SwipeRefreshL
         super.onCreate(savedInstanceState)
         setContentView(R.layout.recyclerview)
         myDialog = Dialog(this)
+        sessionManager = SessionManager(this)
         val retrofit = RetrofitFactory.getRetrofitObject()
-        service = retrofit?.create(ArticleService::class.java)
-        // SwipeRefreshLayout
+        if (retrofit != null) {
+            service = retrofit.create(ArticleService::class.java)
+        }
 
-        // SwipeRefreshLayout
         swipeRefreshLayout = findViewById<View>(R.id.swipe_container) as SwipeRefreshLayout
         swipeRefreshLayout.setOnRefreshListener(this)
         loadData()
         longLoading()
     }
+
     private fun loadData() {
-        service?.articles()?.enqueue(this)
+        service.articles(sessionManager.fetchAuthToken()).enqueue(this)
+
     }
 
     override fun onFailure(call: Call<ResultArticle>, t: Throwable) {
-        swipeRefreshLayout.isRefreshing = false
+        // swipeRefreshLayout.isRefreshing = false
         Log.e("HTTP", "Could not fetch data", t)
         setContentView(R.layout.tryagain)
         findViewById<Button>(R.id.try_again_button).setOnClickListener {
-            loadData()
-            longLoading()
+            this.recreate()
         }
     }
-    override fun onRefresh(){
+
+    override fun onRefresh() {
         this.recreate()
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_bar, menu)
         return true
@@ -73,10 +77,10 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>, SwipeRefreshL
 
     fun onGroupItemClick(item: MenuItem) {
         if (item.title == "Log in") {
-            if (User.getUser().token == null) {
-                myDialog?.let { DialogOpening().openDialogWindow(it) }
+            if (sessionManager.fetchName() == null) {
+                myDialog.let { DialogOpening().openDialogWindow(it, sessionManager) }
             } else {
-                myDialog?.let { LogoutDialog().showLogout(it) }
+                myDialog.let { LogoutDialog().showLogout(it, sessionManager) }
             }
         }
     }
@@ -90,25 +94,26 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>, SwipeRefreshL
     }
 
     private fun loadMoreData(nextId: Int) {
-        service?.nextArticles(nextId, 20)?.enqueue(this)
+        service.nextArticles(sessionManager.fetchAuthToken(), nextId, 20).enqueue(this)
     }
-
-
 
     override fun onResponse(call: Call<ResultArticle>, response: Response<ResultArticle>) {
         if (response.isSuccessful && response.body() != null) {
             swipeRefreshLayout.isRefreshing = false
-            articles = response.body()!!.Results as List<Article>
+            val articles = response.body()!!.Results as List<Article>
             val nextId = response.body()!!.NextId as Int
 
             this.recyclerview.layoutManager = LinearLayoutManager(this)
             this.recyclerview.adapter = MyAdapter(
                 this,
-                articles!!,
+                articles,
                 object : ArticleListener {
                     override fun onArticleClicked(article: Article) {
                         shortLoading()
                         intent.putExtra("Article", article)
+                        if(sessionManager.fetchAuthToken()!=null){
+                        intent.putExtra("UserName", sessionManager.fetchName())
+                        intent.putExtra("Token", sessionManager.fetchAuthToken())}
                         startActivity(intent)
                     }
                 })
@@ -121,11 +126,9 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>, SwipeRefreshL
                     }
                 }
             })
-
-
-
         }
     }
 }
+
 
 

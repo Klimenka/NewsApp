@@ -10,5 +10,8 @@ import retrofit2.http.FormUrlEncoded
 interface RegisterService {
     @FormUrlEncoded
     @POST("api/Users/register")
-    fun register(@Field ("UserName") UserName : String, @Field ("Password") Password : String) : Call<RegisterMessage>
+    fun register(
+        @Field ("UserName") UserName : String,
+        @Field ("Password") Password : String
+    ) : Call<RegisterMessage>
 }

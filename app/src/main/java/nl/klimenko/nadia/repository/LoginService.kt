@@ -9,5 +9,8 @@ import retrofit2.http.POST
 interface LoginService {
     @FormUrlEncoded
     @POST("api/Users/login")
-    fun login(@Field("UserName") UserName : String, @Field("Password") Password : String) : Call<LoginToken>
+    fun login(
+        @Field("UserName") UserName : String,
+        @Field("Password") Password : String
+    ) : Call<LoginToken>
 }

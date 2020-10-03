@@ -31,23 +31,23 @@ class RegisterDialog : Callback<RegisterMessage> {
         myDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         myDialog.window?.findViewById<Button>(R.id.registerButton)?.setOnClickListener{
             //register check
-            val user_name = myDialog.window?.findViewById<EditText>(R.id.user_name)?.text.toString().trim()
+            val userName = myDialog.window?.findViewById<EditText>(R.id.user_name)?.text.toString().trim()
             val password = myDialog.window?.findViewById<EditText>(R.id.password)?.text.toString().trim()
-/*
-            if(user_name?.isEmpty()!!){
-                myDialog?.window?.findViewById<EditText>(R.id.user_name)?.error = "User Name is required"
-                myDialog?.window?.findViewById<EditText>(R.id.user_name)?.requestFocus()
+
+            if(userName.isEmpty()){
+                myDialog.window?.findViewById<EditText>(R.id.user_name)?.error = "User Name is required"
+                myDialog.window?.findViewById<EditText>(R.id.user_name)?.requestFocus()
                 return@setOnClickListener
             }
-            if(password?.isEmpty()!!){
-                myDialog?.window?.findViewById<EditText>(R.id.password)?.error = "Password is required"
-                myDialog?.window?.findViewById<EditText>(R.id.password)?.requestFocus()
+            if(password.isEmpty()){
+                myDialog.window?.findViewById<EditText>(R.id.password)?.error = "Password is required"
+                myDialog.window?.findViewById<EditText>(R.id.password)?.requestFocus()
                 return@setOnClickListener
             }
 
- */
+
             val service = RetrofitFactory.getRetrofitObject()?.create(RegisterService::class.java)
-            service?.register(UserName = user_name, Password =  password)?.enqueue(this)
+            service?.register(UserName = userName, Password =  password)?.enqueue(this)
             Toast.makeText(myDialog.context, myDialog.context.getString(R.string.waiting), Toast.LENGTH_SHORT).show()
         }
         myDialog.show()
@@ -55,6 +55,7 @@ class RegisterDialog : Callback<RegisterMessage> {
 
     override fun onFailure(call: Call<RegisterMessage>, t: Throwable) {
         Log.e("HTTP", "Could not register a user", t)
+        Toast.makeText(myDialog.context, myDialog.context.getString(R.string.tryAgainLater), Toast.LENGTH_SHORT).show()
     }
 
     override fun onResponse(call: Call<RegisterMessage>, response: Response<RegisterMessage>) {
