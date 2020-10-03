@@ -1,13 +1,15 @@
 package nl.klimenko.nadia.models
 
-object User{
+import java.io.Serializable
+
+object User : Serializable {
     var name : String? = null
     var token : LoginToken? = null
 
-   public fun getUser(): User {
+   fun getUser(): User {
         return this
    }
-    public fun clearCredentials(){
+    fun clearCredentials(){
         name = null
         token = null
     }

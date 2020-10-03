@@ -19,7 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RegisterView : Callback<RegisterMessage> {
+class RegisterDialog : Callback<RegisterMessage> {
 
     private lateinit var myDialog : Dialog
 
@@ -48,7 +48,7 @@ class RegisterView : Callback<RegisterMessage> {
  */
             val service = RetrofitFactory.getRetrofitObject()?.create(RegisterService::class.java)
             service?.register(UserName = user_name, Password =  password)?.enqueue(this)
-            Toast.makeText(myDialog.context, "Waiting...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(myDialog.context, myDialog.context.getString(R.string.waiting), Toast.LENGTH_SHORT).show()
         }
         myDialog.show()
     }
@@ -61,11 +61,11 @@ class RegisterView : Callback<RegisterMessage> {
         if (response.isSuccessful && response.body() != null) {
             val responseMessage= response.body()!!
             if(responseMessage.Success){
-                Toast.makeText(myDialog.context, "You have been successfully registered", Toast.LENGTH_SHORT).show()
+                Toast.makeText(myDialog.context, myDialog.context.getString(R.string.registerSuccess), Toast.LENGTH_SHORT).show()
                 myDialog.dismiss()
             }
            else{
-                Toast.makeText(myDialog.context, "This user nem is already in use, please try again", Toast.LENGTH_SHORT).show()
+                Toast.makeText(myDialog.context, myDialog.context.getString(R.string.userNameInUse), Toast.LENGTH_SHORT).show()
             }
         }
     }

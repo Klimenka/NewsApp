@@ -1,4 +1,6 @@
 package nl.klimenko.nadia.models
 
-data class RegisterMessage (val Success : Boolean, val Message : String) {
+import java.io.Serializable
+
+data class RegisterMessage (val Success : Boolean, val Message : String) : Serializable {
     }

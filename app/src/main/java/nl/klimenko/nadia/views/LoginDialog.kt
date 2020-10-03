@@ -18,12 +18,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginView : Callback<LoginToken> {
+class LoginDialog : Callback<LoginToken> {
     private lateinit var myDialog : Dialog
 
 
     fun loginWindow(dialog :Dialog){
-
         myDialog = dialog
         myDialog.setContentView(R.layout.login)
         myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -48,7 +47,7 @@ class LoginView : Callback<LoginToken> {
         if (response.isSuccessful && response.body() != null) {
             val token = response.body()!!
             User.getUser().token = token
-            Toast.makeText(myDialog.context, "You are logged in", Toast.LENGTH_SHORT).show()
+            Toast.makeText(myDialog.context, myDialog.context.getString(R.string.loggedIn), Toast.LENGTH_SHORT).show()
             print(token.AuthToken)
             myDialog.dismiss()
         }

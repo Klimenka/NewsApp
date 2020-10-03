@@ -1,4 +1,6 @@
 package nl.klimenko.nadia.models
 
-data class LoginToken (val AuthToken : String) {
+import java.io.Serializable
+
+data class LoginToken (val AuthToken : String): Serializable {
 }
