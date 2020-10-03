@@ -14,7 +14,9 @@ class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.Image.load(item.Image) {
             crossfade(true)
             transformations(RoundedCornersTransformation(10F))
-
+        }
+        if (item.IsLiked == true) {
+            itemView.heartLike.visibility = View.VISIBLE
         }
         itemView.setOnClickListener {
             listener?.onArticleClicked(item)

@@ -20,5 +20,6 @@
     <string name="tryAgainLater">Please, try again later!</string>
     <string name="userNameRequired">User Name is required</string>
     <string name="passwordRequired">Password is required</string>
+    <string name="image">Image</string>
 
 </resources>

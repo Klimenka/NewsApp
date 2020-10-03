@@ -22,19 +22,33 @@
             android:layout_margin="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="Image"/>
-
+            android:contentDescription="@string/image"/>
 
         <TextView
             android:id="@+id/Title"
-            android:layout_width="wrap_content"
+            android:layout_width="220dp"
             android:layout_gravity="center_vertical"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-
+            android:layout_margin="10dp"
             android:text="@string/title_of_the_article"
             android:singleLine="false"
             android:textAppearance="@style/TitleText"/>
+
+        <ImageView
+            android:id="@+id/heartLike"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="@id/Title"
+            android:src="@drawable/liked"
+            android:visibility="invisible"
+            android:contentDescription="@string/like">
+        </ImageView>
+
     </LinearLayout>
+
+
+
 </androidx.cardview.widget.CardView>
 
