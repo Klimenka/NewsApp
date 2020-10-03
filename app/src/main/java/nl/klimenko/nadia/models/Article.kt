@@ -13,5 +13,5 @@ data class Article (
     val Url : String?,
     val Related : List<String>?,
     val Categories : List<Category>?,
-    val IsLiked : Boolean?
+    var IsLiked : Boolean?
 ): Serializable

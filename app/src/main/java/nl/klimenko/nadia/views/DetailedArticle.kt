@@ -40,9 +40,18 @@ class DetailedArticle : AppCompatActivity(), Callback<Void> {
                     val service = retrofit?.create(ArticleService::class.java)
                     service?.likeArticle(token, item.Id)
                         ?.enqueue(this)
+                    item.IsLiked = true
                 }
             } else {
-                findViewById<ImageView>(R.id.heartLike).visibility = View.VISIBLE
+                val buttonHeart = findViewById<ImageView>(R.id.heartLike)
+                buttonHeart.visibility = View.VISIBLE
+                buttonHeart.setOnClickListener {
+                    val retrofit = RetrofitFactory.getRetrofitObject()
+                    val service = retrofit?.create(ArticleService::class.java)
+                    service?.dislikeArticle(token, item.Id)
+                        ?.enqueue(this)
+                    item.IsLiked = false
+                }
             }
         }
         Log.i("Detail", "Open article with title ${item.Title}")

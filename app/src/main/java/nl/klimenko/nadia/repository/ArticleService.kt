@@ -26,4 +26,10 @@ interface ArticleService {
         @Header("x-authtoken") token: String,
         @Path("id") id: Int
     ): Call<Void>
+
+    @DELETE("api/Articles/{id}/like")
+    fun dislikeArticle(
+        @Header("x-authtoken") token: String,
+        @Path("id") id: Int
+    ): Call<Void>
 }
