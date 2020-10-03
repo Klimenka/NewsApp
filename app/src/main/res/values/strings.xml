@@ -21,5 +21,7 @@
     <string name="userNameRequired">User Name is required</string>
     <string name="passwordRequired">Password is required</string>
     <string name="image">Image</string>
-
+    <string name="favorites">Favorites</string>
+    <string name="log_in">Log in</string>
+    <string name="home">Home</string>
 </resources>

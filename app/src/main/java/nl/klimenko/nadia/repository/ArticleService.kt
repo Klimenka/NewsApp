@@ -10,6 +10,9 @@ interface ArticleService {
     @GET("api/Articles")
     fun articles(@Header("x-authtoken") token: String?): Call<ResultArticle>
 
+    @GET("api/Articles/liked")
+    fun likedArticles(@Header("x-authtoken") token: String?): Call<ResultArticle>
+
     //delete this if I do not use it
     @GET("api/Feeds")
     fun feeds(): Call<List<Feed>>

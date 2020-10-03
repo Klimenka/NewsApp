@@ -1,0 +1,94 @@
+package nl.klimenko.nadia.views
+
+import android.app.Dialog
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.recyclerview.*
+import nl.klimenko.nadia.R
+import nl.klimenko.nadia.configuration.RetrofitFactory
+import nl.klimenko.nadia.configuration.SessionManager
+import nl.klimenko.nadia.controllers.ArticleListener
+import nl.klimenko.nadia.controllers.MyAdapter
+import nl.klimenko.nadia.models.Article
+import nl.klimenko.nadia.models.ResultArticle
+import nl.klimenko.nadia.repository.ArticleService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
+class FavoritesActivity: AppCompatActivity(), Callback<ResultArticle> {
+    private lateinit var myDialog : Dialog
+    lateinit var sessionManager : SessionManager
+    lateinit var service : ArticleService
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.recyclerview)
+        myDialog = Dialog(this)
+        sessionManager = SessionManager(this)
+        intent = Intent(this, DetailedArticle::class.java)
+        val retrofit = RetrofitFactory.getRetrofitObject()
+        service = retrofit?.create(ArticleService::class.java)!!
+        service.likedArticles(sessionManager.fetchAuthToken()).enqueue(this)
+    }
+    override fun onFailure(call: Call<ResultArticle>, t: Throwable) {
+        Log.e("HTTP", "Could not fetch data", t)
+        setContentView(R.layout.tryagain)
+        findViewById<Button>(R.id.try_again_button).setOnClickListener {
+            this.recreate()
+        }
+    }
+
+    override fun onResponse(call: Call<ResultArticle>, response: Response<ResultArticle>) {
+        if (response.isSuccessful && response.body() != null) {
+            val articles = response.body()!!.Results as List<Article>
+            this.recyclerview.layoutManager = LinearLayoutManager(this)
+            this.recyclerview.adapter = MyAdapter(
+                this,
+                articles,
+                object : ArticleListener {
+                    override fun onArticleClicked(article: Article) {
+                        intent.putExtra("Article", article)
+                        if (sessionManager.fetchAuthToken() != null) {
+                            intent.putExtra("UserName", sessionManager.fetchName())
+                            intent.putExtra("Token", sessionManager.fetchAuthToken())
+                        }
+                        startActivity(intent)
+                    }
+                })
+        }
+    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_bar, menu)
+        return true
+    }
+
+    fun onGroupItemClick(item: MenuItem) {
+        if (item.title == "Log in") {
+            if (sessionManager.fetchName() == null) {
+                myDialog.let { DialogOpening().openDialogWindow(it, sessionManager) }
+            } else {
+                myDialog.let { LogoutDialog().showLogout(it, sessionManager) }
+            }
+        }
+        if (item.title == "Favorites") {
+            if (sessionManager.fetchName() == null) {
+                myDialog.let { DialogOpening().openDialogWindow(it, sessionManager) }
+            } else {
+                service.likedArticles(sessionManager.fetchAuthToken()).enqueue(this)
+                val intent = Intent(this, FavoritesActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        if(item.title == "Home"){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+    }
+}

@@ -64,4 +64,5 @@ class DetailedArticle : AppCompatActivity(), Callback<Void> {
     override fun onResponse(call: Call<Void>, response: Response<Void>) {
         this.recreate()
     }
+
 }

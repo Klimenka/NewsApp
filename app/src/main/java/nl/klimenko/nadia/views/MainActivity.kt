@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
     lateinit var myDialog: Dialog
     lateinit var service: ArticleService
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    var flag: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -42,10 +43,7 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
         myDialog = Dialog(this)
         sessionManager = SessionManager(this)
         val retrofit = RetrofitFactory.getRetrofitObject()
-        if (retrofit != null) {
-            service = retrofit.create(ArticleService::class.java)
-        }
-
+        service = retrofit?.create(ArticleService::class.java)!!
         swipeRefreshLayout = findViewById<View>(R.id.swipe_container) as SwipeRefreshLayout
         swipeRefreshLayout.setOnRefreshListener(this)
         loadData()
@@ -58,7 +56,7 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
     }
 
     override fun onFailure(call: Call<ResultArticle>, t: Throwable) {
-        // swipeRefreshLayout.isRefreshing = false
+        swipeRefreshLayout.isRefreshing = false
         Log.e("HTTP", "Could not fetch data", t)
         setContentView(R.layout.tryagain)
         findViewById<Button>(R.id.try_again_button).setOnClickListener {
@@ -82,6 +80,19 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
             } else {
                 myDialog.let { LogoutDialog().showLogout(it, sessionManager) }
             }
+        }
+        if (item.title == "Favorites") {
+            if (sessionManager.fetchName() == null) {
+                myDialog.let { DialogOpening().openDialogWindow(it, sessionManager) }
+            } else {
+                service.likedArticles(sessionManager.fetchAuthToken()).enqueue(this)
+                val intent = Intent(this, FavoritesActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        if(item.title == "Home"){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -111,12 +122,15 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
                     override fun onArticleClicked(article: Article) {
                         shortLoading()
                         intent.putExtra("Article", article)
-                        if(sessionManager.fetchAuthToken()!=null){
-                        intent.putExtra("UserName", sessionManager.fetchName())
-                        intent.putExtra("Token", sessionManager.fetchAuthToken())}
+                        if (sessionManager.fetchAuthToken() != null) {
+                            intent.putExtra("UserName", sessionManager.fetchName())
+                            intent.putExtra("Token", sessionManager.fetchAuthToken())
+                        }
                         startActivity(intent)
                     }
                 })
+
+
             this.recyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -127,6 +141,7 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
                 }
             })
         }
+
     }
 }
 
