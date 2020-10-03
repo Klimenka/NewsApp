@@ -50,6 +50,9 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>, SwipeRefreshL
         loadData()
         longLoading()
     }
+    private fun loadData() {
+        service?.articles()?.enqueue(this)
+    }
 
     override fun onFailure(call: Call<ResultArticle>, t: Throwable) {
         swipeRefreshLayout.isRefreshing = false
@@ -90,9 +93,7 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>, SwipeRefreshL
         service?.nextArticles(nextId, 20)?.enqueue(this)
     }
 
-    private fun loadData() {
-        service?.articles()?.enqueue(this)
-    }
+
 
     override fun onResponse(call: Call<ResultArticle>, response: Response<ResultArticle>) {
         if (response.isSuccessful && response.body() != null) {
