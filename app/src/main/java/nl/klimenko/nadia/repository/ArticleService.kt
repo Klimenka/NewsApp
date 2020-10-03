@@ -5,6 +5,7 @@ import nl.klimenko.nadia.models.ResultArticle
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ArticleService {
     @GET("api/Articles")
@@ -15,5 +16,5 @@ interface ArticleService {
     fun feeds(): Call<List<Feed>>
 
     @GET("api/Articles/{id}")
-    fun nextArticles(@Path("id") id : Int) : Call<ResultArticle>
+    fun nextArticles(@Path("id") id : Int, @Query("count") count : Int) : Call<ResultArticle>
 }

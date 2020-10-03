@@ -20,6 +20,5 @@ class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.setOnClickListener{
             listener?.onArticleClicked(item)
         }
-
     }
 }
