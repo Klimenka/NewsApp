@@ -14,5 +14,8 @@
     <string name="waiting">Waiting…</string>
     <string name="loggedIn">You are logged in</string>
     <string name="try_again">Try again!</string>
+    <string name="full_article">Link to the full article</string>
+    <string name="articleimage">ArticleImage</string>
+    <string name="like">like</string>
 
 </resources>
