@@ -8,6 +8,7 @@
     android:layout_gravity="bottom"
     android:background="@color/white"
     android:id="@+id/logInOptions"
+    android:layout_centerHorizontal="true"
     >
 
     <LinearLayout
@@ -34,18 +35,18 @@
             android:layout_margin="5dp"
             >
             <Button
-                android:layout_width="200dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:text="@string/login"
                 android:id="@+id/loginButton"
-                >
+                android:layout_weight="1" >
             </Button>
             <Button
                 android:id="@+id/registerButton"
-                android:layout_width="200dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:text="@string/register">
-
+                android:text="@string/register"
+                android:layout_weight="1" >
             </Button>
         </LinearLayout>
 
