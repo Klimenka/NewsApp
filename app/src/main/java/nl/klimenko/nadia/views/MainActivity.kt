@@ -93,6 +93,7 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
             } else {
                 service.likedArticles(sessionManager.fetchAuthToken()).enqueue(this)
                 val intent = Intent(this, FavoritesActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
             }
         }
