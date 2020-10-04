@@ -11,7 +11,7 @@
     <string name="LogoutResult">You have been logged out</string>
     <string name="userNameInUse">This user name is already in use, please try again</string>
     <string name="registerSuccess">You have been successfully registered</string>
-    <string name="waiting">Waiting…</string>
+    <string name="waiting">Loading…</string>
     <string name="loggedIn">You are logged in</string>
     <string name="try_again">Try again!</string>
     <string name="full_article">Link to the full article</string>
@@ -24,4 +24,6 @@
     <string name="favorites">Favorites</string>
     <string name="log_in">Log in</string>
     <string name="home">Home</string>
+    <string name="wrong">Something went wrong, please, try again</string>
+
 </resources>

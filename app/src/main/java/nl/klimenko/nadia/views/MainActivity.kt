@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,13 +34,15 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
     lateinit var myDialog: Dialog
     lateinit var service: ArticleService
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    var flag: Boolean = true
+    lateinit var progressBar : ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         intent = Intent(this, DetailedArticle::class.java)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.recyclerview)
+        this.recyclerview.visibility = View.GONE
+        progressBar = findViewById(R.id.progressBar)
         myDialog = Dialog(this)
         sessionManager = SessionManager(this)
         val retrofit = RetrofitFactory.getRetrofitObject()
@@ -48,6 +51,7 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
         swipeRefreshLayout.setOnRefreshListener(this)
         loadData()
         longLoading()
+        progressBar.visibility = View.VISIBLE
     }
 
     private fun loadData() {
@@ -62,6 +66,7 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
         findViewById<Button>(R.id.try_again_button).setOnClickListener {
             this.recreate()
         }
+        Toast.makeText(this, this.getString(R.string.wrong), Toast.LENGTH_LONG).show()
     }
 
     override fun onRefresh() {
@@ -110,6 +115,8 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
 
     override fun onResponse(call: Call<ResultArticle>, response: Response<ResultArticle>) {
         if (response.isSuccessful && response.body() != null) {
+            this.recyclerview.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
             swipeRefreshLayout.isRefreshing = false
             val articles = response.body()!!.Results as List<Article>
             val nextId = response.body()!!.NextId as Int

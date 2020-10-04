@@ -32,14 +32,13 @@ class LogoutDialog {
             myDialog.context.getString(R.string.welcome) + sessionManager.fetchName() + "!"
         myDialog.window?.findViewById<Button>(R.id.logoutButton)?.setOnClickListener {
             //log out
-            sessionManager.clearUserCredentials()
-            Toast.makeText(
-                myDialog.context,
-                myDialog.context.getString(R.string.LogoutResult),
-                Toast.LENGTH_SHORT
-            ).show()
-            myDialog.dismiss()
-
+                sessionManager.clearUserCredentials()
+                Toast.makeText(
+                    myDialog.context,
+                    myDialog.context.getString(R.string.LogoutResult),
+                    Toast.LENGTH_SHORT
+                ).show()
+                myDialog.dismiss()
         }
 
         myDialog.show()

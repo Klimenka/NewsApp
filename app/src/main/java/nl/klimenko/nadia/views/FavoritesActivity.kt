@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.recyclerview.*
@@ -43,6 +44,7 @@ class FavoritesActivity: AppCompatActivity(), Callback<ResultArticle> {
         findViewById<Button>(R.id.try_again_button).setOnClickListener {
             this.recreate()
         }
+        Toast.makeText(this, this.getString(R.string.wrong), Toast.LENGTH_LONG).show()
     }
 
     override fun onResponse(call: Call<ResultArticle>, response: Response<ResultArticle>) {

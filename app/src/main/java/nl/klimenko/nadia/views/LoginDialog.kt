@@ -61,6 +61,11 @@ class LoginDialog : Callback<LoginToken> {
     override fun onFailure(call: Call<LoginToken>, t: Throwable) {
         Log.e("HTTP", "Could not login a user", t)
         sessionManager.clearUserCredentials()
+        Toast.makeText(
+            myDialog.context,
+            myDialog.context.getString(R.string.wrong),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onResponse(call: Call<LoginToken>, response: Response<LoginToken>) {
