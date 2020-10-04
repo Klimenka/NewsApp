@@ -29,7 +29,7 @@ class LogoutDialog {
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
         myDialog.window?.findViewById<TextView>(R.id.greeting)?.text =
-            myDialog.context.getString(R.string.welcome) + sessionManager.fetchName() + "!"
+            myDialog.context.getString(R.string.welcome) + " "+ sessionManager.fetchName() + "!"
         myDialog.window?.findViewById<Button>(R.id.logoutButton)?.setOnClickListener {
             //log out
                 sessionManager.clearUserCredentials()
