@@ -1,5 +1,6 @@
 package nl.klimenko.nadia.views
 
+import android.app.ActivityOptions
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
@@ -71,7 +72,7 @@ class FavoritesActivity: AppCompatActivity(), Callback<ResultArticle> {
                             intent.putExtra("UserName", sessionManager.fetchName())
                             intent.putExtra("Token", sessionManager.fetchAuthToken())
                         }
-                        startActivity(intent)
+                        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this@FavoritesActivity).toBundle())
                     }
                 })
         }
