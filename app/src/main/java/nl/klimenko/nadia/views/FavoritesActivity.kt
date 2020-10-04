@@ -66,6 +66,7 @@ class FavoritesActivity: AppCompatActivity(), Callback<ResultArticle> {
                 object : ArticleListener {
                     override fun onArticleClicked(article: Article) {
                         intent.putExtra("Article", article)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         if (sessionManager.fetchAuthToken() != null) {
                             intent.putExtra("UserName", sessionManager.fetchName())
                             intent.putExtra("Token", sessionManager.fetchAuthToken())

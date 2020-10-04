@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NavUtils
 import androidx.core.text.HtmlCompat
 import coil.load
 import nl.klimenko.nadia.R
@@ -57,6 +58,10 @@ class DetailedArticle : AppCompatActivity(), Callback<Void> {
         Log.i("Detail", "Open article with title ${article.Title}")
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        this.finish()
+    }
     override fun onFailure(call: Call<Void>, t: Throwable) {
 
         Log.e("HTTP", "Could not like an article", t)
