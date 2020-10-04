@@ -26,5 +26,8 @@
     <string name="home">Home</string>
     <string name="wrong">Something went wrong, please, try again</string>
     <string name="network">A network error has been occurred. Please, try again.</string>
+    <string name="news_reader">News reader app</string>
+    <string name="designed_by_nadia_klimenko">Designed by Nadia Klimenko</string>
+    <string name="logo">logo</string>
 
 </resources>
