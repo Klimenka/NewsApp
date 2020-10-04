@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,10 +29,14 @@ class FavoritesActivity: AppCompatActivity(), Callback<ResultArticle> {
     private lateinit var myDialog : Dialog
     lateinit var sessionManager : SessionManager
     lateinit var service : ArticleService
+    lateinit var progressBar : ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.recyclerview)
+        this.recyclerview.visibility = View.GONE
+        progressBar = findViewById(R.id.progressBar)
+        progressBar.visibility = View.VISIBLE
         myDialog = Dialog(this)
         sessionManager = SessionManager(this)
         intent = Intent(this, DetailedArticle::class.java)
@@ -39,16 +45,19 @@ class FavoritesActivity: AppCompatActivity(), Callback<ResultArticle> {
         service.likedArticles(sessionManager.fetchAuthToken()).enqueue(this)
     }
     override fun onFailure(call: Call<ResultArticle>, t: Throwable) {
+        progressBar.visibility = View.GONE
         Log.e("HTTP", "Could not fetch data", t)
         setContentView(R.layout.tryagain)
         findViewById<Button>(R.id.try_again_button).setOnClickListener {
             this.recreate()
         }
-        Toast.makeText(this, this.getString(R.string.wrong), Toast.LENGTH_LONG).show()
+        Toast.makeText(this, this.getString(R.string.network), Toast.LENGTH_LONG).show()
     }
 
     override fun onResponse(call: Call<ResultArticle>, response: Response<ResultArticle>) {
         if (response.isSuccessful && response.body() != null) {
+            this.recyclerview.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
             val articles = response.body()!!.Results as List<Article>
             this.recyclerview.layoutManager = LinearLayoutManager(this)
             this.recyclerview.adapter = MyAdapter(

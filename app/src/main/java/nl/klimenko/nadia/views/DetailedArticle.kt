@@ -58,6 +58,7 @@ class DetailedArticle : AppCompatActivity(), Callback<Void> {
     }
 
     override fun onFailure(call: Call<Void>, t: Throwable) {
+
         Log.e("HTTP", "Could not like an article", t)
         Toast.makeText(this, this.getString(R.string.wrong), Toast.LENGTH_SHORT).show()
         article.IsLiked = !(article.IsLiked as Boolean)

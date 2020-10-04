@@ -41,8 +41,11 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
         intent = Intent(this, DetailedArticle::class.java)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.recyclerview)
+        //show progress bar
         this.recyclerview.visibility = View.GONE
         progressBar = findViewById(R.id.progressBar)
+        progressBar.visibility = View.VISIBLE
+
         myDialog = Dialog(this)
         sessionManager = SessionManager(this)
         val retrofit = RetrofitFactory.getRetrofitObject()
@@ -50,23 +53,21 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
         swipeRefreshLayout = findViewById<View>(R.id.swipe_container) as SwipeRefreshLayout
         swipeRefreshLayout.setOnRefreshListener(this)
         loadData()
-        longLoading()
-        progressBar.visibility = View.VISIBLE
     }
 
     private fun loadData() {
         service.articles(sessionManager.fetchAuthToken()).enqueue(this)
-
     }
 
     override fun onFailure(call: Call<ResultArticle>, t: Throwable) {
         swipeRefreshLayout.isRefreshing = false
+        progressBar.visibility = View.GONE
         Log.e("HTTP", "Could not fetch data", t)
         setContentView(R.layout.tryagain)
         findViewById<Button>(R.id.try_again_button).setOnClickListener {
             this.recreate()
         }
-        Toast.makeText(this, this.getString(R.string.wrong), Toast.LENGTH_LONG).show()
+        Toast.makeText(this, this.getString(R.string.network), Toast.LENGTH_LONG).show()
     }
 
     override fun onRefresh() {
@@ -105,10 +106,6 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
         Toast.makeText(this, this.getString(R.string.waiting), Toast.LENGTH_SHORT).show()
     }
 
-    private fun longLoading() {
-        Toast.makeText(this, this.getString(R.string.waiting), Toast.LENGTH_LONG).show()
-    }
-
     private fun loadMoreData(nextId: Int) {
         service.nextArticles(sessionManager.fetchAuthToken(), nextId, 20).enqueue(this)
     }
@@ -143,7 +140,8 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
                     super.onScrolled(recyclerView, dx, dy)
                     if (!recyclerView.canScrollVertically(1)) { //1 for down
                         loadMoreData(nextId)
-                        longLoading()
+                        recyclerview.visibility = View.GONE
+                        progressBar.visibility = View.VISIBLE
                     }
                 }
             })

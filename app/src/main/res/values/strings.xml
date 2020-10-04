@@ -25,5 +25,6 @@
     <string name="log_in">Log in</string>
     <string name="home">Home</string>
     <string name="wrong">Something went wrong, please, try again</string>
+    <string name="network">A network error has been occurred. Please, try again.</string>
 
 </resources>
