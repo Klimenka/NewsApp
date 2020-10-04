@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NavUtils
 import androidx.core.text.HtmlCompat
 import coil.load
 import nl.klimenko.nadia.R
@@ -27,9 +26,7 @@ class DetailedArticle : AppCompatActivity(), Callback<Void> {
         super.onCreate(savedInstanceState)
         with(window) {
             requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
-            // set set the transition to be shown when the user enters this activity
             enterTransition = Explode()
-            // set the transition to be shown when the user leaves this activity
             exitTransition = Explode()
             exitTransition.duration = 2000
         }

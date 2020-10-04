@@ -8,7 +8,7 @@
     <string name="login">LOGIN</string>
     <string name="logout">LOGOUT</string>
     <string name="welcome">\"Welcome, \"</string>
-    <string name="LogoutResult">You have been logged out</string>
+    <string name="logoutResult">You have been logged out</string>
     <string name="userNameInUse">This user name is already in use, please try again</string>
     <string name="registerSuccess">You have been successfully registered</string>
     <string name="waiting">Loading…</string>

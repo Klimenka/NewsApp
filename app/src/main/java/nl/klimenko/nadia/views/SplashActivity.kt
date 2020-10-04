@@ -9,8 +9,7 @@ import nl.klimenko.nadia.R
 
 class SplashActivity : AppCompatActivity() {
 
-    // This is the loading time of the splash screen
-    private val SPLASH_TIME_OUT:Long = 3000 // 1 sec
+    private val SPLASH_TIME_OUT:Long = 3000
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash)

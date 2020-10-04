@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import nl.klimenko.nadia.R
-import nl.klimenko.nadia.controllers.ArticleListener
-import nl.klimenko.nadia.controllers.MyViewHolder
 import nl.klimenko.nadia.models.Article
 
 class MyAdapter(var c: Context, private val items: List<Article>, private val articleListener: ArticleListener) : RecyclerView.Adapter<MyViewHolder>() {

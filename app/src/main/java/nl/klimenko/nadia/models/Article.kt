@@ -4,8 +4,6 @@ import java.io.Serializable
 
 data class Article (
     val Id : Int,
-    //maybe here it is appropriate to use the object Feed
-    val Feed : Int?,
     val Title : String?,
     val Summary : String?,
     val PublishDate : String?,

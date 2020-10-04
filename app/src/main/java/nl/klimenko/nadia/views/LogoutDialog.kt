@@ -35,7 +35,7 @@ class LogoutDialog {
                 sessionManager.clearUserCredentials()
                 Toast.makeText(
                     myDialog.context,
-                    myDialog.context.getString(R.string.LogoutResult),
+                    myDialog.context.getString(R.string.logoutResult),
                     Toast.LENGTH_SHORT
                 ).show()
                 myDialog.dismiss()
