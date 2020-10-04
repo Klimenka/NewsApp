@@ -1,5 +1,6 @@
 package nl.klimenko.nadia.views
 
+import android.app.ActivityOptions
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
@@ -38,13 +39,14 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        intent = Intent(this, DetailedArticle::class.java)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.recyclerview)
         //show progress bar
         this.recyclerview.visibility = View.GONE
         progressBar = findViewById(R.id.progressBar)
         progressBar.visibility = View.VISIBLE
+
+        intent = Intent(this, DetailedArticle::class.java)
 
         myDialog = Dialog(this)
         sessionManager = SessionManager(this)
@@ -132,7 +134,8 @@ class MainActivity : AppCompatActivity(), Callback<ResultArticle>,
                             intent.putExtra("UserName", sessionManager.fetchName())
                             intent.putExtra("Token", sessionManager.fetchAuthToken())
                         }
-                        startActivity(intent)
+                        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this@MainActivity).toBundle())
+                      //  startActivity(intent)
                     }
                 })
 

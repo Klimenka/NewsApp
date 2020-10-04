@@ -2,8 +2,10 @@ package nl.klimenko.nadia.views
 
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.transition.Explode
 import android.util.Log
 import android.view.View
+import android.view.Window
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -23,6 +25,14 @@ class DetailedArticle : AppCompatActivity(), Callback<Void> {
     lateinit var article : Article
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        with(window) {
+            requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
+            // set set the transition to be shown when the user enters this activity
+            enterTransition = Explode()
+            // set the transition to be shown when the user leaves this activity
+            exitTransition = Explode()
+            exitTransition.duration = 2000
+        }
         article = intent.getSerializableExtra("Article") as Article
         val token = intent.getSerializableExtra("Token") as String?
         setContentView(R.layout.article_detailed)
